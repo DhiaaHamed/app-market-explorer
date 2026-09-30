@@ -1,16 +1,18 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="An interactive exploration of a historical Google Play app sample. Filter categories, compare ratings and explore app records."><title>App Market Explorer · Dhiaa Hamed</title><link rel="stylesheet" href="styles.css"><script defer src="data.js"></script><script defer src="analysis.js"></script><script defer src="app.js"></script></head>
-<body>
-<a class="skip" href="#main">Skip to dashboard</a>
-<header><a class="brand" href="./"><span class="mark">a<span>m</span></span> App Market Explorer</a><nav aria-label="Primary"><a href="#method">About the data</a><a href="https://github.com/1hugemtf/app-market-explorer">Source code ↗</a></nav></header>
-<main id="main">
-<section class="hero"><div><p class="eyebrow">A DATA EXPLORATION BY DHIAA HAMED</p><h1>Look beyond<br>the download count.</h1><p class="intro">Explore how app categories, pricing and ratings intersect. Start broad, then narrow the view to the apps that interest you.</p></div><div class="hero-note"><span class="status-dot"></span> HISTORICAL SNAPSHOT<p>9,659 apps<br><strong>33 categories.</strong></p><span>Source records include updates through August 2018.<br>This is a sample, not today’s market.</span></div></section>
-<section class="filter-card" aria-labelledby="filter-title"><div class="section-top"><h2 id="filter-title">Shape your view</h2><button id="reset" class="quiet" type="button">Reset filters ↺</button></div><form id="filters"><label>Search apps<input id="search" type="search" placeholder="Try photography or calendar…"></label><label>Category<select id="category"><option value="">All categories</option></select></label><label>Pricing<select id="type"><option value="">Free & paid</option><option>Free</option><option>Paid</option></select></label><label>Minimum reviews<select id="reviews"><option value="0">Any review count</option><option value="100">100+ reviews</option><option value="1000">1,000+ reviews</option><option value="10000">10,000+ reviews</option><option value="100000">100,000+ reviews</option></select></label></form><p id="selection" role="status" aria-live="polite"></p></section>
-<section class="metrics" aria-label="Selection summary"><article><span>Apps in view</span><strong id="count">—</strong><small id="share">Loading sample</small></article><article><span>Average rating</span><strong id="rating">—</strong><small id="rated">Rated apps only · out of 5</small></article><article><span>Free apps</span><strong id="free">—</strong><small id="free-count">Share of this selection</small></article><article><span>Median paid price</span><strong id="price">—</strong><small id="paid-count">USD · paid apps only</small></article></section>
-<section class="charts"><article class="panel"><div class="section-top"><div><p class="eyebrow">CATEGORY MIX</p><h2>Where the apps are</h2></div><span class="chip">Top 8</span></div><p class="caption">App counts in your selection. Choose a category to focus the view.</p><div id="categories" class="bars"></div></article><article class="panel"><p class="eyebrow">RATING DISTRIBUTION</p><h2>How the ratings stack up</h2><p class="caption">One observation per rated app. Missing ratings are excluded.</p><div id="distribution" class="bars"></div><p id="rating-note" class="chart-note"></p></article></section>
-<section class="panel table-panel"><div class="section-top"><div><p class="eyebrow">EXPLORE THE RECORDS</p><h2>Apps, in detail</h2></div><label class="sort-label">Sort by<select id="sort"><option value="reviews">Most reviews</option><option value="rating">Highest rating</option><option value="name">App name</option><option value="price">Highest price</option></select></label></div><div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable app records"><table><caption class="sr-only">Filtered app records. Install bands are reported lower bounds, not exact counts.</caption><thead><tr><th scope="col">App</th><th scope="col">Category</th><th scope="col">Rating</th><th scope="col">Reviews</th><th scope="col">Install band</th><th scope="col">Price</th></tr></thead><tbody id="rows"></tbody></table></div><div class="pagination"><span id="page-info"></span><div><button id="previous" type="button">← Previous</button><button id="next" type="button">Next →</button></div></div></section>
-<section id="method" class="method"><div><p class="eyebrow">READ THE FINE PRINT</p><h2>A useful lens.<br>Not the whole market.</h2></div><div><p>This dashboard uses the historical app dataset supplied with a DataCamp learning project. The collection date and sampling method are not established. It cannot measure current market share, demand or business opportunity.</p><p>Average ratings give each rated app equal weight. Median price includes paid apps only. Install bands are lower bounds, not exact downloads. Review counts do not identify unique people. Missing ratings stay missing.</p><p>The interactive interface and filtering logic are a new portfolio extension built with AI assistance. The data originates from the earlier <a href="https://github.com/1hugemtf/google-play-analysis">Google Play analysis</a>; source-data rights remain with their owners. No live API, tracking or account is required.</p></div></section>
-</main><footer><span>Designed & developed with AI assistance · Dhiaa Hamed</span><div><a href="https://1huge-dhiaa.carrd.co/">Portfolio ↗</a><a href="https://www.linkedin.com/in/dhiaa-hamed/">LinkedIn ↗</a></div></footer>
-<noscript><p class="noscript">Enable JavaScript to use the interactive filters. The source dataset and notebook are available in the linked GitHub repository.</p></noscript>
-</body></html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102b2b" />
+    <meta
+      name="description"
+      content="An interactive analytics workspace for 9,659 historical Google Play apps."
+    />
+    <title>App Market Explorer | Dhiaa Hamed</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Enable JavaScript to explore the dashboard.</noscript>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>

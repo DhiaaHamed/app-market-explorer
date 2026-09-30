@@ -27,10 +27,11 @@ def build(source):
                 raise ValueError('Free app has nonzero price')
             records.append(dict(id=len(records), name=name, category=row['Category'], rating=rating,
                                 reviews=reviews, installs=row['Installs'], type=row['Type'], price=price))
-    output = Path(__file__).parent / 'data.js'
+    output = Path(__file__).parent / 'apps.json'
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     payload = json.dumps(records, ensure_ascii=True, separators=(',', ':'), allow_nan=False)
-    output.write_text(f'// Derived from apps.csv; SHA-256: {digest}\nwindow.APP_DATA={payload};\n', encoding='utf-8')
+    output.write_text(payload + '\n', encoding='utf-8')
+    (output.parent / 'data-source.json').write_text(json.dumps({'source': 'DataCamp Google Play apps.csv', 'sha256': digest, 'records': len(records)}, indent=2) + '\n', encoding='utf-8')
     print(f'Wrote {len(records)} app records; source SHA-256: {digest}')
 
 
