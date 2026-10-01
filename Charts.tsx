@@ -68,32 +68,32 @@ export function RatingChart({ apps }: { apps: AppRecord[] }) {
           data={data}
           margin={{ top: 12, right: 10, left: -20, bottom: 0 }}
         >
-          <CartesianGrid vertical={false} stroke="#e3dccd" />
+          <CartesianGrid vertical={false} stroke="#edf1f7" />
           <XAxis
             dataKey="name"
             tickLine={false}
             axisLine={false}
-            tick={{ fontSize: 11, fill: "#7a705e" }}
+            tick={{ fontSize: 11, fill: "#8a98ad" }}
           />
           <YAxis
             tickLine={false}
             axisLine={false}
-            tick={{ fontSize: 10, fill: "#7a705e" }}
+            tick={{ fontSize: 10, fill: "#8a98ad" }}
             tickFormatter={compact}
           />
           <Tooltip
-            cursor={{ fill: "#efe8da" }}
+            cursor={{ fill: "#f2f5fc" }}
             formatter={(v) => [format(Number(v)), "Apps"]}
-            contentStyle={{ borderRadius: 10, border: "1px solid #d3c8b4" }}
+            contentStyle={{ borderRadius: 10, border: "1px solid #dfe6f2" }}
           />
           <Bar
             dataKey="count"
-            radius={[0, 0, 0, 0]}
+            radius={[4, 4, 0, 0]}
             maxBarSize={52}
             isAnimationActive={false}
           >
             {data.map((b, i) => (
-              <Cell key={b.name} fill={i === 3 ? "#c34323" : "#d5bea0"} />
+              <Cell key={b.name} fill={i === 3 ? "#5975ef" : "#c3cef8"} />
             ))}
           </Bar>
         </BarChart>
@@ -122,7 +122,7 @@ export function ReviewScatter({
             <ScatterChart
               margin={{ top: 15, right: 25, bottom: 20, left: -10 }}
             >
-              <CartesianGrid stroke="#e3dccd" />
+              <CartesianGrid stroke="#edf1f7" />
               <XAxis
                 type="number"
                 dataKey="logReviews"
@@ -131,13 +131,13 @@ export function ReviewScatter({
                 tickFormatter={(v) => compact(10 ** Number(v))}
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 10, fill: "#7a705e" }}
+                tick={{ fontSize: 10, fill: "#8a98ad" }}
                 label={{
                   value: "Reviews · logarithmic scale",
                   position: "bottom",
                   offset: 0,
                   fontSize: 10,
-                  fill: "#7a705e",
+                  fill: "#8a98ad",
                 }}
               />
               <YAxis
@@ -147,7 +147,7 @@ export function ReviewScatter({
                 ticks={[1, 2, 3, 4, 5]}
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 10, fill: "#7a705e" }}
+                tick={{ fontSize: 10, fill: "#8a98ad" }}
               />
               <Tooltip
                 cursor={{ strokeDasharray: "3 3" }}
@@ -175,7 +175,7 @@ export function ReviewScatter({
                 {sample.points.map((a) => (
                   <Cell
                     key={a.id}
-                    fill={a.type === "Paid" ? "#536d91" : "#c34323"}
+                    fill={a.type === "Paid" ? "#e5a761" : "#5975ef"}
                     fillOpacity={0.55}
                   />
                 ))}
