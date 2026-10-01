@@ -1,4 +1,4 @@
-# App Market Explorer
+# Google Play Analysis Dashboard
 
 A React and TypeScript analytics workspace for **9,659 historical Google Play apps across 33 categories**. Explore linked charts, inspect app records and build a shareable comparison.
 

@@ -2077,3 +2077,30 @@ dialog {
     font-size: 28px;
   }
 }
+
+.brand {
+  font-size: 23px;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+}
+.brand-sub {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  margin-top: 7px;
+  color: #78869e;
+}
+.loading-screen .loading-brand {
+  color: #3859e8;
+  font-size: 16px;
+  font-weight: 650;
+  margin-bottom: 16px;
+}
+@media (max-width: 950px) and (min-width: 701px) {
+  .brand {
+    font-size: 21px;
+  }
+  .brand-sub {
+    font-size: 10px;
+  }
+}

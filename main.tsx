@@ -43,7 +43,7 @@ function Loader() {
 function Loading() {
   return (
     <div className="loading-screen" role="status">
-      <span className="loading-mark">am</span>
+      <p className="loading-brand">Google Play Analysis Dashboard</p>
       <h2>Opening your workspace</h2>
       <p>Preparing the historical app archive…</p>
     </div>

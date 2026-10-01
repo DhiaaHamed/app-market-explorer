@@ -207,7 +207,7 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
       ),
       a = document.createElement("a");
     a.href = url;
-    a.download = "app-market-selection.csv";
+    a.download = "google-play-selection.csv";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setNotice(`${format(sorted.length)} app records exported.`);
@@ -219,11 +219,8 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
       </a>
       <aside className={"sidebar " + (mobileMenu ? "open" : "")}>
         <a className="brand" href={location.pathname}>
-          <span className="brand-mark">
-            <Activity size={23} />
-          </span>
           <span>
-            appmarket<span className="brand-sub">EXPLORER</span>
+            Google Play<span className="brand-sub">Analysis Dashboard</span>
           </span>
         </a>
         <p className="nav-label">WORKSPACE</p>
@@ -343,7 +340,7 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
         <main id="workspace">
           <section className="page-heading">
             <div>
-              <p className="eyebrow">APP MARKET EXPLORER / OVERVIEW</p>
+              <p className="eyebrow">GOOGLE PLAY ANALYSIS DASHBOARD</p>
               <h1>
                 {view === "overview"
                   ? "A new perspective on apps."
