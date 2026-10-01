@@ -343,13 +343,13 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
         <main id="workspace">
           <section className="page-heading">
             <div>
-              <p className="eyebrow">GOOGLE PLAY / MARKET INTELLIGENCE</p>
+              <p className="eyebrow">FIELD NOTES / GOOGLE PLAY, 2018</p>
               <h1>
                 {view === "overview"
-                  ? "A clearer view of the app landscape."
+                  ? "The app market, unpacked."
                   : view === "explorer"
-                    ? "Find the story behind every app."
-                    : "A closer look, side by side."}
+                    ? "Every app has a story."
+                    : "The details make the difference."}
               </h1>
               <p>
                 {view === "overview"
