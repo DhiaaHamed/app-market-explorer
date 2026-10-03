@@ -101,8 +101,13 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
     [saveName, setSaveName] = useState(""),
     [method, setMethod] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null),
-    methodDialog = useRef<HTMLDialogElement>(null);
+    methodDialog = useRef<HTMLDialogElement>(null),
+    navigation = useRef<HTMLElement>(null),
+    menuToggle = useRef<HTMLButtonElement>(null);
   const { filters, view, compare } = workspace;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [view]);
   const selected = useMemo(() => filterApps(apps, filters), [filters]),
     stats = useMemo(() => summarize(selected), [selected]),
     cats = useMemo(() => categoryStats(selected), [selected]),
@@ -132,6 +137,49 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
     const t = setTimeout(() => setNotice(""), 4000);
     return () => clearTimeout(t);
   }, [notice]);
+  useEffect(() => {
+    if (!mobileMenu) return;
+    const panel = navigation.current;
+    const controls = () =>
+      Array.from(
+        panel?.querySelectorAll<HTMLElement>(
+          "a[href], button:not(:disabled), input:not(:disabled)",
+        ) ?? [],
+      );
+    const focusFrame = requestAnimationFrame(() => controls()[0]?.focus());
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const desktop = matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMobileMenu(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenu(false);
+      if (event.key !== "Tab") return;
+      const items = controls(),
+        first = items[0],
+        last = items.at(-1);
+      if (!panel?.contains(document.activeElement)) {
+        event.preventDefault();
+        first?.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", closeOnDesktop);
+      menuToggle.current?.focus();
+    };
+  }, [mobileMenu]);
   useEffect(() => {
     if (detail && !dialog.current?.open) dialog.current?.showModal();
     else if (!detail) dialog.current?.close();
@@ -217,7 +265,30 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
       <a className="skip-link" href="#workspace">
         Skip to workspace
       </a>
-      <aside className={"sidebar " + (mobileMenu ? "open" : "")}>
+      {mobileMenu && (
+        <button
+          className="menu-scrim"
+          aria-label="Close navigation"
+          onClick={() => setMobileMenu(false)}
+        />
+      )}
+      <aside
+        ref={navigation}
+        onTransitionEnd={(event) => {
+          if (
+            event.target === event.currentTarget &&
+            mobileMenu &&
+            !event.currentTarget.contains(document.activeElement)
+          ) {
+            event.currentTarget.querySelector<HTMLAnchorElement>("a")?.focus();
+          }
+        }}
+        role={mobileMenu ? "dialog" : undefined}
+        aria-modal={mobileMenu ? true : undefined}
+        aria-label="Dashboard navigation"
+        id="dashboard-navigation"
+        className={"sidebar " + (mobileMenu ? "open" : "")}
+      >
         <a className="brand" href={location.pathname}>
           <span>
             Google Play<span className="brand-sub">Analysis Dashboard</span>
@@ -311,12 +382,15 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
           </a>
         </div>
       </aside>
-      <div className="main-shell">
+      <div className="main-shell" inert={mobileMenu}>
         <header className="topbar">
           <div>
             <button
+              ref={menuToggle}
               className="menu-button icon-button"
               aria-label="Toggle navigation"
+              aria-expanded={mobileMenu}
+              aria-controls="dashboard-navigation"
               onClick={() => setMobileMenu(!mobileMenu)}
             >
               <Menu size={20} />
@@ -343,10 +417,10 @@ export default function Dashboard({ apps }: { apps: AppRecord[] }) {
               <p className="eyebrow">GOOGLE PLAY ANALYSIS DASHBOARD</p>
               <h1>
                 {view === "overview"
-                  ? "A new perspective on apps."
+                  ? "The app landscape, in focus."
                   : view === "explorer"
-                    ? "Every app has a story."
-                    : "The details make the difference."}
+                    ? "Find your next insight."
+                    : "A closer look, side by side."}
               </h1>
               <p>
                 {view === "overview"
